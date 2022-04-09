@@ -1,20 +1,29 @@
 ﻿# Certificate Name
 $subject = "CN=CodeSignServices,O=USD"
+
 # Hash Algorithm
 $hashAlgorithm = "SHA384"
+
 #KeyUsage
 $keyUsage = "KeyEncipherment"
-#EKU
-$EKU = @("2.5.29.37={text}1.3.6.1.5.5.7.3.3,1.3.6.1.4.1.311.10.3.13")
+
+#EKU (1.3.6.1.4.1.311.10.3.13) is Microsoft Lifetime Signing. If it exists, there will be expired even have signed by Time Stamping Server.
+$EKU = @("2.5.29.37={text}1.3.6.1.5.5.7.3.3")
+#$EKU = @("2.5.29.37={text}1.3.6.1.5.5.7.3.3,1.3.6.1.4.1.311.10.3.13")
+
 #KeyAlgorithm
 $keyAlgorithm = "RSA"
+
 #KetSize
 $keyLength="2048"
-#Period
-$period = "7000"
-$provider = "Microsoft Software Key Storage Provider" 
+
+#Period 3001 is the max year
+$period = "978"
+
+#Provider, Windows' Interface called CSP. One of Providers called "Micorsoft Software Key Storage Provider" can help to generate RSA key
 #Microsoft Software Key Storage Provider
-#Microsoft Platform Crypto Provider
+#Microsoft Platform Crypto Provider => TPM
+$provider = "Microsoft Software Key Storage Provider" 
 
 $path = "Cert:\CurrentUser\My"
 
